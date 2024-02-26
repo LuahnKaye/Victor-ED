@@ -1,0 +1,72 @@
+package main
+
+import "fmt"
+
+type Contato struct {
+	nome  string
+	email string
+}
+
+func (contato *Contato) AlterarEmail(emailNovo string) {
+	contato.email = emailNovo
+}
+
+func adicionarContato(contato Contato, arrayContatos []*Contato) {
+	for i, c := range arrayContatos {
+		if c == nil {
+			arrayContatos[i] = &contato
+			fmt.Println("Contato adicionado!")
+			return
+		}
+	}
+	fmt.Println("Não foi possível adicionar o contato pois já foram adicionados 5 contatos.")
+}
+
+func excluirContato(arrayContatos []*Contato) {
+	for i := 4; i >= 0; i-- {
+		if arrayContatos[i] != nil {
+			arrayContatos[i] = nil
+			fmt.Println("O último contato foi removido com sucesso.")
+			return
+		}
+	}
+
+	fmt.Println("Nenhum contato foi cadastrado.")
+}
+
+func main() {
+	arrayContatos := make([]*Contato, 5)
+
+	for {
+		var opcao int
+		fmt.Println("1 → Adicionar Contato")
+		fmt.Println("2 → Excluir o Último Contato")
+		fmt.Println("3 → Sair")
+		fmt.Scanln(&opcao)
+
+		switch opcao {
+		case 1:
+			var nome, email string
+			fmt.Print("Nome do contato: ")
+			fmt.Scanln(&nome)
+			fmt.Print("E-mail do contato: ")
+			fmt.Scanln(&email)
+			novoContato := Contato{nome: nome, email: email}
+			adicionarContato(novoContato, arrayContatos)
+		case 2:
+			excluirContato(arrayContatos)
+		case 3:
+			fmt.Println("Programa Encerrando.")
+			return
+		default:
+			fmt.Println("Opção inválida. tente denovo!")
+
+		}
+		fmt.Println("\nContatos:")
+		for _, c := range arrayContatos {
+			if c != nil {
+				fmt.Printf("Nome: %s, Email: %s\n", c.nome, c.email)
+			}
+		}
+	}
+}
