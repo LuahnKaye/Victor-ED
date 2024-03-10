@@ -1,0 +1,56 @@
+package main
+
+import (
+	"fmt"
+)
+
+func torreHanoi(num int, Pilar1, Pilar2, Pilar3 string) {
+	if num == 1 {
+		fmt.Printf("\nMova o disco da %s para a %s", Pilar1, Pilar2)
+		return
+	}
+
+	torreHanoi(num-1, Pilar1, Pilar3, Pilar2)
+	fmt.Printf("\nMova o disco da %s para a %s", Pilar1, Pilar2)
+	torreHanoi(num-1, Pilar3, Pilar2, Pilar1)
+}
+
+func buscaSoma(lista []int, valorAlvo int) (int, int) {
+	n1 := 0
+	n2 := len(lista) - 1
+
+	for n1 < n2 {
+		soma := lista[n1] + lista[n2]
+
+		if soma == valorAlvo {
+			return lista[n1], lista[n2]
+		} else if soma < valorAlvo {
+			n1++
+		} else {
+			n2--
+		}
+	}
+	return -1, -1
+}
+
+func main() {
+
+	torreHanoi(4, "Torre 1", "Torre 3", "Torre 2")
+	fmt.Println("\n---------------------------------------")
+	listaNumeros := []int{1, 2, 4, 6, 8, 14, 18, 22, 23, 32, 55}
+
+	//Teste 1
+	fmt.Println(buscaSoma(listaNumeros, 1))
+	fmt.Println(buscaSoma(listaNumeros, 22))
+	fmt.Println(buscaSoma(listaNumeros, 30))
+	fmt.Println(buscaSoma(listaNumeros, 55))
+
+	//Teste 2
+	valorAlvo := 26
+	n1, n2 := buscaSoma(listaNumeros, valorAlvo)
+	if n1 != -1 {
+		fmt.Printf("Par encontrado: %d + %d = %d\n", n1, n2, valorAlvo)
+	} else {
+		fmt.Println("Nenhum par encontrado.")
+	}
+}
