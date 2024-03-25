@@ -83,5 +83,48 @@ func main() {
 
 segundo:
 
+package main
 
+import "fmt"
 
+func main() {
+	var numPessoas int
+	var capacidadeGarrafa, capacidadeCuia float64
+
+	fmt.Scan(&numPessoas, &capacidadeGarrafa, &capacidadeCuia)
+
+	listaNomes := make([]string, numPessoas)
+
+	for i := 0; i < numPessoas; i++ {
+		fmt.Scan(&listaNomes[i])
+	}
+
+	indicePessoa := int(capacidadeGarrafa / capacidadeCuia) % numPessoas
+
+	aguaTomada := capacidadeGarrafa - float64(indicePessoa)*capacidadeCuia
+
+	fmt.Printf("%s %.1f\n", listaNomes[indicePessoa], aguaTomada)
+}
+
+terceiro:
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func main() {
+    var a, b int 
+    var c float64
+
+    fmt.Scanln(&a, &b, &c)
+	
+    var d, e int 
+    var f float64
+
+    fmt.Scanln(&d, &e, &f)
+	
+    resultado := float64(b)*c + float64(e)*f
+    fmt.Printf("VALOR A PAGAR: R$ %.2f\n", resultado)
+}
